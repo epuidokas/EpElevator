@@ -44,6 +44,25 @@ public class EpElevatorControllerTest extends junit.framework.TestCase {
             return 0;
         }
 
+        public boolean isDoorOpen()
+        {
+            return false;
+        }
+
+        public void setDestination(Integer floor)
+        {
+
+        }
+
+        public void closeDoor()
+        {
+
+        }
+
+        public void openDoor()
+        {
+
+        }
     }
 
     class PhysicalButton implements Button {
@@ -63,6 +82,11 @@ public class EpElevatorControllerTest extends junit.framework.TestCase {
         public Integer getDirection()
         {
             return 0;
+        }
+
+        public boolean getState()
+        {
+            return false;
         }
 
     }
