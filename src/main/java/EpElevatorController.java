@@ -23,13 +23,13 @@ public class EpElevatorController implements ElevatorController {
         addJob(0, 0);
         elevator.attachListener(elevatorListener);
         elevators.add(new EpElevator(elevator));
-        logger.log("New elevator registered.");
+        logger.log("New elevator registered on floor " + elevator.getLocation() + ".");
     }
 
     public void registerButton(Button button)
     {
         button.attachListener(buttonListener);
-        logger.log("New button registered.");
+        logger.log("New " + button.getDirection() + " button registered on floor " + button.getLocation() + ".");
     }
 
     private void addJob(Integer priority, Integer location) {
@@ -47,14 +47,18 @@ public class EpElevatorController implements ElevatorController {
         for (Map.Entry<Integer,ElevatorJob> jobEntry : rankedJobs.entrySet()) {
             if (!elevators.isEmpty()) {
                 ElevatorJob job = jobEntry.getValue();
-                EpElevator bestElevator = elevators.get(0);
+                EpElevator bestElevator = null;
                 Integer score = -1;
+
                 for (EpElevator elevator : elevators) {
-                    if (elevator.getScore(job) > score) {
+                    if (!elevator.isBusy() && elevator.getScore(job) > score) {
                         bestElevator = elevator;
                     }
                 }
-                bestElevator.handleJob(job);
+
+                if (bestElevator != null) {
+                    bestElevator.handleJob(job);
+                }
             }
         }
     }

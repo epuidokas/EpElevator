@@ -15,19 +15,29 @@ public class EpElevatorControllerTest extends junit.framework.TestCase {
 
         // Register 2 elevators
         for (Integer i = 0; i < 2; i++) {
-            epElevatorController.registerElevator(new PhysicalElevator());
+            epElevatorController.registerElevator(new PhysicalElevator(0, 0));
         }
 
         // Register 20 buttons (10 floors)
         for (Integer i = 0; i < 20; i++) {
-            epElevatorController.registerButton(new PhysicalButton());
+            epElevatorController.registerButton(new PhysicalButton(i/2, i%2));
         }
-
     }
 
     class PhysicalElevator implements Elevator {
 
         List<ElevatorListener> listeners = new ArrayList<ElevatorListener>();
+
+        private Integer location;
+
+        // -1 = down, 0 = not moving, 1 = up
+        private Integer direction;
+
+        public PhysicalElevator(Integer location, Integer direction)
+        {
+            this.location = location;
+            this.direction = direction;
+        }
 
         public void attachListener(ElevatorListener elevatorListener)
         {
@@ -36,12 +46,12 @@ public class EpElevatorControllerTest extends junit.framework.TestCase {
 
         public Integer getLocation()
         {
-            return 0;
+            return location;
         }
 
         public Integer getDirection()
         {
-            return 0;
+            return direction;
         }
 
         public boolean isDoorOpen()
@@ -69,6 +79,17 @@ public class EpElevatorControllerTest extends junit.framework.TestCase {
 
         List<ButtonListener> listeners = new ArrayList<ButtonListener>();
 
+        private Integer location;
+
+        // 0 = down, 1 = up
+        private Integer direction;
+
+        public PhysicalButton(Integer location, Integer direction)
+        {
+            this.location = location;
+            this.direction = direction;
+        }
+
         public void attachListener(ButtonListener buttonListener)
         {
             listeners.add(buttonListener);
@@ -76,12 +97,12 @@ public class EpElevatorControllerTest extends junit.framework.TestCase {
 
         public Integer getLocation()
         {
-            return 0;
+            return location;
         }
 
         public Integer getDirection()
         {
-            return 0;
+            return direction;
         }
 
         public boolean getState()
