@@ -1,3 +1,5 @@
 public interface Button {
-    public void attachListener();
+    public void attachListener(ButtonListener buttonListener);
+    public Integer getDirection();
+    public Integer getLocation();
 }
